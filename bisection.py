@@ -13,9 +13,11 @@ def bisection_method(func, a, b, error_acceptable):
         return f
     
     error = abs(b - a)
+
+    c = (b + a)/2
     
-    while error < error_acceptable:
-        c = (b + a) / 2
+    
+    while error > error_acceptable:
         
         if f(a) * f(b) >= 0:
             print("No root in this range")
@@ -23,18 +25,24 @@ def bisection_method(func, a, b, error_acceptable):
         
         elif f(c) * f(a) < 0:    
             b = c
-            error = abs(b - a)
+            c_old = c
+            c = (b + a)/2
+            error = abs(c - c_old)/c
             
         elif f(c) * f(b) < 0:
             a = c
-            error = abs(b - a)
+            c_old = c
+            c = (b + a)/2
+            error = abs(c - c_old)/c
         
         else:
             print("something went wrong")
             quit()
     
-    print(f"the error is {error}")
+    print(f"The error is {error*100}%")
+    print(f"The lower bound a is {a} and the upper bound b is {b}")
     print(f"The root is {c}")
     
+#Calling bisection method with the function and the bounds
 
-print(bisection_method("-2 + 7x - 5x**2 + 6x**3", 0, 1, 0.1))
+#bisection_method("(-2 + (7*x) - (5*x ** 2)+ (6*x ** 3))", 0, 1, 0.1)
